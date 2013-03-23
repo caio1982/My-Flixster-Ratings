@@ -52,9 +52,25 @@ class Ratings():
             for entry in self.json:
                 id = entry["movieId"]
                 title = entry["movie"]["title"]
-                score = entry["scoreCss"]
-                if "wts" in score:
+
+                # handles want-to-see and not-interested entries
+                if "wts" in entry["scoreCss"]:
                     score = 0
-                tomatoes = entry["movie"]["tomatometer"]
-                audience = entry["movie"]["audienceScore"]
-                csv.writerow([id, title, score, tomatoes, audience])
+                elif "ni" in entry["scoreCss"]:
+                    score = -1
+                else:
+                    score = int(entry["scoreCss"])
+
+                if "tomatometer" in entry["movie"]:
+                    tomatoes = entry["movie"]["tomatometer"]
+                else:
+                    tomatoes = 0
+
+                if "audienceScore" in entry["movie"]:
+                    audience = entry["movie"]["audienceScore"]
+                else:
+                    audience = 0
+
+                row = [id, title, score, tomatoes, audience]
+                print row
+                csv.writerow(row)
