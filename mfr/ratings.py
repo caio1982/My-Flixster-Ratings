@@ -19,6 +19,7 @@ class Ratings():
             raise KeyError("Username ID must be specified")
         # first chrome user-agent string available at useragentstring.com
         self.ua = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.60 Safari/537.17"}
+        # thanks https://github.com/mmihaljevic/flixter for the api address
         self.url = "http://www.flixster.com/api/users/%s/movies/ratings" % userid
         self.payload = {"page": "1", "limit": limit}
         self._fetch()
