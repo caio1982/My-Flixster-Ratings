@@ -70,7 +70,16 @@ class Ratings():
 
     def export(self, filename):
         """
-        Export all ratings fetched to a CSV file.
+        Export all ratings fetched to a CSV file. Entries marked as
+        Want-To-See in Flixster will be saved with a zeroed score, entries
+        marked as Not-Interested will be saved with score -1.
+
+        As of now the CSV fields are:
+            - Movie ID
+            - Movie Title
+            - Your rating
+            - Rottent Tomatoes rating
+            - Audience rating
 
         @filename: required name of the .csv file.
         """
