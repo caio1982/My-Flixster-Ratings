@@ -7,7 +7,7 @@
 
 from requests import get
 from simplejson import load
-from csv import writer
+from unicodecsv import writer
 from sys import version_info
 
 if version_info[0] < 3:
@@ -46,7 +46,7 @@ class Ratings():
     def export(self, filename):
         if filename is None:
             raise KeyError("A filename must be specified when exporting")
-        with open(filename, "w", "utf-8") as f:
+        with open(filename, "w") as f:
             csv = writer(f)
             csv.writerow(["Id", "Movie", "Score", "Tomatometer", "Audience"])
             for entry in self.json:
@@ -72,5 +72,4 @@ class Ratings():
                     audience = 0
 
                 row = [id, title, score, tomatoes, audience]
-                print row
                 csv.writerow(row)
