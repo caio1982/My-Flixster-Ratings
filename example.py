@@ -7,7 +7,7 @@
 
 from mfr import ratings
 
-r = ratings.Ratings("845548311", 1)
+r = ratings.Ratings("845548311", 3)
 backup = "myflixsterratings.json"
 
 if r.write(backup):
