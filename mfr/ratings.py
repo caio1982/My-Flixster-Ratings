@@ -7,6 +7,7 @@
 
 from requests import get
 from simplejson import load
+from csv import writer
 from sys import version_info
 
 if version_info[0] < 3:
@@ -25,6 +26,7 @@ class Ratings():
     def _fetch(self):
         ret = get(self.url, params=self.payload, headers=self.ua)
         self.data = ret.text
+        self.json = ret.json
 
     def write(self, output):
         if output is None:
@@ -39,3 +41,19 @@ class Ratings():
             data = load(i)
             i.close()
         return data
+
+    def export(self, filename):
+        if filename is None:
+            raise KeyError("A filename must be specified when exporting")
+        with open(filename, "w", "utf-8") as f:
+            csv = writer(f)
+            csv.writerow(["Id", "Movie", "Score", "Tomatometer", "Audience"])
+            for entry in self.json:
+                id = entry["movieId"]
+                title = entry["movie"]["title"]
+                score = entry["scoreCss"]
+                if "wts" in score:
+                    score = 0
+                tomatoes = entry["movie"]["tomatometer"]
+                audience = entry["movie"]["audienceScore"]
+                csv.writerow([id, title, score, tomatoes, audience])
