@@ -1,4 +1,5 @@
 *.json
+*.csv
 *.py[cod]
 
 # C extensions
