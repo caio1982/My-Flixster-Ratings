@@ -1,16 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-# Caio Begotti
-# <caio1982@gmail.com>
-# Public Domain
+# public domain
 
 """
 Fetches all ratings of a given user from Flixster.com,
 writes it to a file in disk and reads it back.
 """
 
-__author__ =  'Caio Begotti'
+__author__ =  'Caio Begotti <caio1982@gmail.com>'
 
 from requests import get
 from simplejson import load
@@ -22,11 +19,13 @@ if version_info[0] < 3:
 
 class Ratings():
     """
-    Class to fetch and handle movies ratings from a Flixster.com account.
+    Class to fetch, read, save and export movies ratings from a Flixster.com account.
     """
     
     def __init__(self, userid, limit=100):
         """
+        Constructor.
+
         @userid: required user code from Flixster.com.
         @limit: ratings limit to retrieve, defaults to 100.
         """
