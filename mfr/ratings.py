@@ -5,6 +5,13 @@
 # <caio1982@gmail.com>
 # Public Domain
 
+"""
+Fetches all ratings of a given user from Flixster.com,
+writes it to a file in disk and reads it back.
+"""
+
+__author__ =  'Caio Begotti'
+
 from requests import get
 from simplejson import load
 from unicodecsv import writer
@@ -14,7 +21,15 @@ if version_info[0] < 3:
     from codecs import open as open
 
 class Ratings():
+    """
+    Class to fetch and handle movies ratings from a Flixster.com account.
+    """
+    
     def __init__(self, userid, limit=100):
+        """
+        @userid: required user code from Flixster.com.
+        @limit: ratings limit to retrieve, defaults to 100.
+        """
         if userid is None:
             raise KeyError("Username ID must be specified")
         # first chrome user-agent string available at useragentstring.com
@@ -30,12 +45,22 @@ class Ratings():
         self.json = ret.json
 
     def write(self, output):
+        """
+        Writes all ratings to a JSON file.
+
+        @output: required output filename.
+        """
         if output is None:
             raise KeyError("An output must be specified when calling write()")
         with open(output, "w", "utf-8") as o:
             o.write(self.data)
 
     def read(self, input):
+        """
+        Reads a JSON file with ratings. Returns a JSON object.
+
+        @input: required input filename.
+        """
         if input is None:
             raise KeyError("An input filename must be specified")
         with open(input, "r", "utf-8") as i:
@@ -44,6 +69,11 @@ class Ratings():
         return data
 
     def export(self, filename):
+        """
+        Export all ratings fetched to a CSV file.
+
+        @filename: required name of the .csv file.
+        """
         if filename is None:
             raise KeyError("A filename must be specified when exporting")
         with open(filename, "w") as f:
