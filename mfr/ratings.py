@@ -39,7 +39,11 @@ class Ratings():
         self._fetch()
 
     def _fetch(self):
-        ret = get(self.url, params=self.payload, headers=self.ua)
+        try:
+            ret = get(self.url, params=self.payload, headers=self.ua)
+        except:
+            raise Exception("Connection error, check your internet link")
+
         self.data = ret.text
         self.json = ret.json
 
