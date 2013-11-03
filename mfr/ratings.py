@@ -96,12 +96,12 @@ class Ratings():
                 title = entry["movie"]["title"]
 
                 # handles want-to-see and not-interested entries
-                if "wts" in entry["score"]:
+                if "+" in entry["score"]:
                     score = 0
-                elif "ni" in entry["score"]:
+                elif "-" in entry["score"]:
                     score = -1
                 else:
-                    score = int(entry["score"])
+                    score = int(float(entry["score"])) * 20
 
                 if "tomatometer" in entry["movie"]:
                     tomatoes = entry["movie"]["tomatometer"]
