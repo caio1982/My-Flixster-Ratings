@@ -8,7 +8,7 @@
 from mfr import ratings
 
 # fetch ratings (first 100 by default)
-r = ratings.Ratings("845548311")
+r = ratings.Ratings("845548311", 9999)
 backup = "myflixsterratings.json"
 
 # write the json to a file
